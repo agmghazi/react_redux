@@ -1,8 +1,9 @@
 import "./App.css";
-import store from "./Redux/store";
-import { bugAdded, bugUpdate } from "./Redux/actions";
+import configureStore from "./store/configureStore";
+import { bugAdded, bugUpdate } from "./store/bugs";
 
 function App() {
+  const store = configureStore();
   const unsubscripe = store.subscribe(() => {
     console.log("update state", store.getState());
   });
