@@ -1,6 +1,10 @@
 import "./App.css";
+import store from "./Redux/store";
 
 function App() {
+  console.log(store);
+  console.log(store.getState());
+
   return (
     <div className="App">
       <h1>Hello</h1>
