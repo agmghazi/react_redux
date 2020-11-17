@@ -1,7 +1,16 @@
 import "./App.css";
 import store from "./Redux/store";
+import { bugAdded, bugUpdate } from "./Redux/actions";
 
 function App() {
+  const unsubscripe = store.subscribe(() => {
+    console.log("update state", store.getState());
+  });
+
+  store.dispatch(bugAdded("add patch 1"));
+  store.dispatch(bugUpdate(1));
+
+  unsubscripe();
   console.log(store);
   console.log(store.getState());
 
