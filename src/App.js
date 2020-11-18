@@ -1,15 +1,15 @@
 import "./App.css";
-import configureStore from "./store/configureStore";
+import configureAppStore from "./store/configureStore";
 import { bugAdded, bugUpdate } from "./store/bugs";
 
 function App() {
-  const store = configureStore();
+  const store = configureAppStore();
   const unsubscripe = store.subscribe(() => {
     console.log("update state", store.getState());
   });
 
-  store.dispatch(bugAdded("add patch 1"));
-  store.dispatch(bugUpdate(1));
+  store.dispatch(bugAdded({ description: "add patch 1" }));
+  store.dispatch(bugUpdate({ id: 1 }));
 
   unsubscripe();
   console.log(store);

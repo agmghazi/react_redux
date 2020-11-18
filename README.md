@@ -14,3 +14,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 ## add redux devtools extension
 
 ### `npm i redux-devtools-extension`
+
+## add Redux Toolkit for sync data
+
+### `npm install @reduxjs/toolkit`
