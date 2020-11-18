@@ -22,3 +22,13 @@ It correctly bundles React in production mode and optimizes the build for the be
 ## for memo select data
 
 ### `npm i reselect`
+
+## for Contact
+
+`agmghazi@hotmail.com`
+`https://www.facebook.com/agmghazi/`
+`https://www.linkedin.com/in/agmghazi/`
+
+## for cashing
+
+### `npm i moment`

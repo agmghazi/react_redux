@@ -1,22 +1,25 @@
 import "./App.css";
 import configureAppStore from "./store/configureStore";
-import { bugAdded, bugUpdate, getUnresolvedBugs } from "./store/bugs";
+import { bugAdded, bugUpdate, getUnresolvedBugs, loadBugs } from "./store/bugs";
 import { projectAdded } from "./store/project";
+import * as actions from "./store/api";
 
 function App() {
   const store = configureAppStore();
 
   //like get data from API
-  store.dispatch({
-    type: "error",
-    payload: { message: "An error occurred" },
-  });
+  //UI ayer
+  store.dispatch(loadBugs());
+
+  setTimeout(() => {
+    store.dispatch(loadBugs());
+  }, 2000);
 
   // const unsubscripe = store.subscribe(() => {
   //   console.log("update state", store.getState());
   // });
 
-  store.dispatch(bugAdded({ description: "add patch 1" }));
+  // store.dispatch(bugAdded({ description: "add patch 1" }));
   // store.dispatch(bugUpdate({ id: 1 }));
   // store.dispatch(projectAdded({ name: "project 1" }));
 

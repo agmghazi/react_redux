@@ -1,32 +1,58 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-
-let lastId = 0;
+import { apiCallBegan } from "./api";
+import moment from "moment";
 
 const slice = createSlice({
   name: "bugs",
-  initialState: [],
+  initialState: {
+    list: [],
+    loading: false,
+    lastFeatch: null,
+  },
   reducers: {
+    bugsReceived: (bugs, action) => {
+      bugs.list = action.payload;
+      bugs.loading = true;
+      bugs.lastFeatch = Date.now();
+    },
     bugAdded: (bugs, action) => {
-      bugs.push({
-        id: ++lastId,
-        description: action.payload.description,
-        resolved: false,
-      });
+      bugs.list.push(action.payload);
     },
     bugUpdate: (bugs, action) => {
-      const index = bugs.findIndex((bug) => bug.id === action.payload.id);
-      bugs[index] = { resolved: true };
+      const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
+      bugs.list[index] = { resolved: true };
     },
   },
 });
 
-export const { bugAdded, bugUpdate } = slice.actions;
+export const { bugAdded, bugUpdate, bugsReceived } = slice.actions;
 export default slice.reducer;
+
+//Action Creators
+const url = "/bugs";
+export const loadBugs = () => (dispatch, getState) => {
+  console.log("getState");
+  getState();
+  console.log(getState());
+  const { lastFeatch } = getState().entities.bugs;
+  console.log("lastFeatch" + lastFeatch);
+
+  const diffInMinutes = moment().diff(moment(lastFeatch), "minutes");
+  if (diffInMinutes < 10) return;
+  console.log("diffInMinutes" + diffInMinutes);
+
+  dispatch(
+    apiCallBegan({
+      url,
+      onSuccess: bugsReceived.type,
+    })
+  );
+};
 
 //selector
 export const getUnresolvedBugs = createSelector(
   (state) => state.entities.bugs,
   (state) => state.entities.projects,
-  (bugs, projects) => bugs.filter((bug) => !bug.resolved)
+  (bugs, projects) => bugs.list.filter((bug) => !bug.resolved)
 );
