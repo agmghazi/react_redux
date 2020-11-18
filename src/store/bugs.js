@@ -50,6 +50,14 @@ export const loadBugs = () => (dispatch, getState) => {
   );
 };
 
+//Action Post
+export const addBug = (bug) =>
+  apiCallBegan({
+    url,
+    method: "post",
+    data: bug,
+    onSuccess: bugAdded.type,
+  });
 //selector
 export const getUnresolvedBugs = createSelector(
   (state) => state.entities.bugs,
