@@ -1,6 +1,6 @@
 import "./App.css";
 import configureAppStore from "./store/configureStore";
-import { bugAdded, bugUpdate } from "./store/bugs";
+import { bugAdded, bugUpdate, getUnresolvedBugs } from "./store/bugs";
 import { projectAdded } from "./store/project";
 
 function App() {
@@ -12,6 +12,11 @@ function App() {
   store.dispatch(bugAdded({ description: "add patch 1" }));
   store.dispatch(bugUpdate({ id: 1 }));
   store.dispatch(projectAdded({ name: "project 1" }));
+
+  const unresolveBugs = getUnresolvedBugs(store.getState());
+  const unresolveBugs2 = getUnresolvedBugs(store.getState());
+  console.log("unresolveBugs" + unresolveBugs);
+  console.log(unresolveBugs === unresolveBugs2);
 
   // unsubscripe();
   console.log(store);

@@ -18,3 +18,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 ## add Redux Toolkit for sync data
 
 ### `npm install @reduxjs/toolkit`
+
+## for memo select data
+
+### `npm i reselect`
