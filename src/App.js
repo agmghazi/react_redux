@@ -1,17 +1,19 @@
 import "./App.css";
 import configureAppStore from "./store/configureStore";
 import { bugAdded, bugUpdate } from "./store/bugs";
+import { projectAdded } from "./store/project";
 
 function App() {
   const store = configureAppStore();
-  const unsubscripe = store.subscribe(() => {
-    console.log("update state", store.getState());
-  });
+  // const unsubscripe = store.subscribe(() => {
+  //   console.log("update state", store.getState());
+  // });
 
   store.dispatch(bugAdded({ description: "add patch 1" }));
   store.dispatch(bugUpdate({ id: 1 }));
+  store.dispatch(projectAdded({ name: "project 1" }));
 
-  unsubscripe();
+  // unsubscripe();
   console.log(store);
   console.log(store.getState());
 
